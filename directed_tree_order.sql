@@ -1,4 +1,7 @@
+--- ref:
 --- Kahn's algorith
+--- https://en.wikipedia.org/wiki/Topological_sorting
+---------------------------------------------------------
 
 -- items(nodes) to be ordered
 declare @n TABLE(
@@ -13,7 +16,7 @@ declare @e TABLE(
   ref2 varchar(100)
 )
 
-
+-- example data
 insert into @n (refcode)
 values ('a'), ('b'), ('c'), ('d'), ('e'), ('f'), ('g')
 
@@ -21,7 +24,8 @@ insert @e(ref1, ref2)
 values ('a','c'),('d','e'),('a','e'), ('e','c'),('g','d'),('c','f')
 
 
--- alg
+
+-- algorithm start
 update @n set orderno = 0
 
 -- set of nodes that have no incoming-edge 
@@ -61,3 +65,17 @@ select * from @n
 order by orderno
 
 
+/*
+---------------------------------------------------------
+the result is: 
+---------------------------------------------------------
+refcode	orderno
+a	1
+b	2
+g	3
+d	4
+e	5
+c	6
+f	7
+---------------------------------------------------------
+*/
